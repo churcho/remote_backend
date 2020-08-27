@@ -3,7 +3,8 @@ defmodule RemoteBackendWeb.UserControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    response = json_response(conn, 200)
-    IO.inspect(response)
+    %{"timestamp" => timestamp, "users" => users} = json_response(conn, 200)
+    assert is_nil(timestamp)
+    assert length(users) == 0
   end
 end

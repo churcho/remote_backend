@@ -36,6 +36,7 @@ defmodule RemoteBackend.MixProject do
       {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
+      {:phoenix_html, "~> 2.14"},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
@@ -46,6 +47,8 @@ defmodule RemoteBackend.MixProject do
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
 
+      # Date Time
+      {:timex, "~> 3.5"},
       # Testing 
       {:ex_machina, "~> 2.4"},
       {:faker, "~> 0.14"},

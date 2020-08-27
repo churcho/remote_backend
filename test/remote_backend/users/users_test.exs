@@ -37,4 +37,17 @@ defmodule RemoteBackend.UsersTest do
       assert length(users) == length
     end
   end
+
+  describe ".update_user/2" do
+    @update_points 200
+    test "updates an existing user" do
+      params = string_params_for(:random_user)
+      {:ok, user} = Users.create_user(params)
+
+      update_params = %{id: user.id, points: @update_points}
+      {:ok, updated_user} = Users.update_user(user, update_params)
+      assert updated_user.points == @update_points
+      assert updated_user.id == user.id
+    end
+  end
 end

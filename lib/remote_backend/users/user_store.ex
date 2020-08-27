@@ -58,4 +58,23 @@ defmodule RemoteBackend.Users.UserStore do
 
     {:noreply, new_state}
   end
+
+  @doc """
+  GenServer.handle_call/3 callback
+  """
+  def handle_call(:get, _from, state) do
+    {:ok, timestamp} = Timex.format(Timex.now(), "{YYYY}-{0M}-{D} {h24}:{m}:{s}")
+    max_return = RemoteBackend.get_max_user_to_return()
+    %{max_number: max, users: users} = state
+
+    max_users =
+      users
+      |> Enum.filter(fn user ->
+        user.points > max
+      end)
+      |> Enum.take(max_return)
+
+    {:reply, %{users: max_users, timestamp: state.prev_timestamp},
+     %{state | timestamp: timestamp}}
+  end
 end

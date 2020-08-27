@@ -16,4 +16,9 @@ defmodule RemoteBackend do
   def get_max_number do
     Application.get_env(:remote_backend, :max_points, 10)
   end
+
+  @spec get_max_user_to_return :: integer()
+  def get_max_user_to_return do
+    Application.get_env(:remote_backend, :max_user_to_return, 2)
+  end
 end

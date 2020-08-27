@@ -10,7 +10,7 @@ use Mix.Config
 config :remote_backend,
   ecto_repos: [RemoteBackend.Repo],
   max_points: 100,
-  max_user_seed: 10
+  max_user_seed: 100
 
 # Configures the endpoint
 config :remote_backend, RemoteBackendWeb.Endpoint,

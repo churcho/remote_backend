@@ -12,7 +12,7 @@ defmodule RemoteBackend.Users do
   Create a user by passing the params:  %{point: point_data}
   """
   @spec create_user(map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
-  def create_user(%{"points" => points} = params) do
+  def create_user(%{"points" => _points} = params) do
     %User{}
     |> UserChangeset.create_changeset(params)
     |> Repo.insert()

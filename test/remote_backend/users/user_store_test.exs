@@ -64,7 +64,6 @@ defmodule RemoteBackend.UserStoreTest do
       assert max_number < @max_number
     end
 
-    @tag :current
     @max_number 200
     test "handle_info :refresh updates users points" do
       {:ok, init_timestamp} =
@@ -81,6 +80,44 @@ defmodule RemoteBackend.UserStoreTest do
 
       user = Enum.find(users, fn u -> u.id == user.id end)
       assert user.points < @max_number
+    end
+  end
+
+  describe "UserStore.handle_call" do
+    setup do
+      max = RemoteBackend.get_max_number()
+
+      users =
+        Enum.map(0..5, fn _x ->
+          params = %{"points" => Enum.random(0..max)}
+          {:ok, user} = Users.create_user(params)
+          user
+        end)
+
+      {:ok, users: users}
+    end
+
+    @max_number 0
+    test "handle_call :get retrieves max 2 users > max_number", %{users: users} do
+      {:ok, init_timestamp} =
+        Timex.format(Timex.shift(Timex.now(), minutes: -1), "{YYYY}-{0M}-{D} {h24}:{m}:{s}")
+
+      {:ok, timestamp} =
+        Timex.format(Timex.shift(Timex.now(), seconds: -45), "{YYYY}-{0M}-{D} {h24}:{m}:{s}")
+
+      state = %{
+        max_number: @max_number,
+        prev_timestamp: init_timestamp,
+        timestamp: timestamp,
+        users: users
+      }
+
+      {:reply, %{users: state_users, timestamp: state_timestamp}, state} =
+        UserStore.handle_call(:get, self(), state)
+
+      assert length(state_users) == 2
+      assert state_timestamp == init_timestamp
+      refute state.timestamp == timestamp
     end
   end
 end

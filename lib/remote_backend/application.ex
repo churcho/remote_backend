@@ -11,9 +11,13 @@ defmodule RemoteBackend.Application do
       # Start the Ecto repository
       RemoteBackend.Repo,
       # Start the endpoint when the application starts
-      RemoteBackendWeb.Endpoint
+      RemoteBackendWeb.Endpoint,
       # Starts a worker by calling: RemoteBackend.Worker.start_link(arg)
       # {RemoteBackend.Worker, arg},
+      %{
+        id: RemoteBackend.Users.UserStore,
+        start: {RemoteBackend.Users.UserStore, :start_link, [0]}
+      }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

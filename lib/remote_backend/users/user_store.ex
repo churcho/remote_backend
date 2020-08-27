@@ -9,10 +9,11 @@ defmodule RemoteBackend.Users.UserStore do
   alias RemoteBackend.Users
   alias RemoteBackend.Users.User
 
+  @name __MODULE__
   @one_minute 60000
 
   def start_link(max_number) do
-    GenServer.start_link(__MODULE__, max_number)
+    GenServer.start_link(__MODULE__, max_number, name: @name)
   end
 
   def init(max_number) do
@@ -55,6 +56,7 @@ defmodule RemoteBackend.Users.UserStore do
     }
 
     new_state = Map.merge(state, new_state)
+    Process.send_after(self(), :refresh, @one_minute)
 
     {:noreply, new_state}
   end

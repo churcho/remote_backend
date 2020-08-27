@@ -29,4 +29,14 @@ defmodule RemoteBackend.Users do
 
     Repo.all(query)
   end
+
+  @doc """
+  Performs an update on the User
+  """
+  @spec update_user(User.t(), map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+  def update_user(%User{} = user, params) do
+    user
+    |> UserChangeset.create_changeset(params)
+    |> Repo.update()
+  end
 end

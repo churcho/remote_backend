@@ -9,7 +9,7 @@ defmodule RemoteBackend.Users.User do
   @typedoc """
   Type for `RemoteBackend.Users.User.points`
   """
-  @type points :: 0..100
+  @type points() :: 0..100
 
   @typedoc """
   Struct type for `RemoteBackend.Users.User`.

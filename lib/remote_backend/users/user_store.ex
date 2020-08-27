@@ -5,9 +5,7 @@ defmodule RemoteBackend.Users.UserStore do
   use GenServer, restart: :transient
   require Logger
 
-  alias RemoteBackend.Repo
   alias RemoteBackend.Users
-  alias RemoteBackend.Users.User
 
   @name __MODULE__
   @one_minute 60000

@@ -2,6 +2,7 @@ defmodule RemoteBackend.Users do
   @moduledoc """
   Context module for handling operations to `RemoteBackend.Users`
   """
+  import Ecto.Query
 
   alias RemoteBackend.Repo
   alias RemoteBackend.Users.User
@@ -15,5 +16,17 @@ defmodule RemoteBackend.Users do
     %User{}
     |> UserChangeset.create_changeset(params)
     |> Repo.insert()
+  end
+
+  @doc """
+  Get a list of all users in the database
+  """
+  @spec get_users() :: {:ok, [User.t()]} | {:error, Ecto.Changeset.t()}
+  def get_users do
+    query =
+      from u in User,
+        select: u
+
+    Repo.all(query)
   end
 end

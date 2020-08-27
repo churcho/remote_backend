@@ -11,4 +11,9 @@ defmodule RemoteBackend do
   Primary key
   """
   @type primary_key() :: pos_integer()
+
+  @spec get_max_number :: integer()
+  def get_max_number do
+    Application.get_env(:remote_backend, :max_points, 10)
+  end
 end

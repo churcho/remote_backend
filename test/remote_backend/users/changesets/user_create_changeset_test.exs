@@ -23,6 +23,15 @@ defmodule RemoteBackend.Users.Changesets.UserCreateChangesetTest do
       assert_invalid(changeset)
     end
 
+    test "given an out of range point" do
+      params = string_params_for(:random_user, %{points: 200})
+      changeset = UserChangeset.create_changeset(%User{}, params)
+
+      changeset
+      |> assert_errors([:points])
+      |> assert_error(points: "must be less than or equal to 100")
+    end
+
     test "given an initial %User{} and :user params (atom-keyed)" do
       params = params_for(:random_user)
       changeset = UserChangeset.create_changeset(%User{}, params)

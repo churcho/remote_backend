@@ -39,7 +39,7 @@ defmodule RemoteBackend.UsersTest do
   end
 
   describe ".update_user/2" do
-    @update_points 200
+    @update_points 100
     test "updates an existing user" do
       params = string_params_for(:random_user)
       {:ok, user} = Users.create_user(params)

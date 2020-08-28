@@ -8,7 +8,7 @@ defmodule RemoteBackend.Users.UserStore do
   alias RemoteBackend.Users
 
   @name __MODULE__
-  @one_minute 60000
+  @one_minute 60_000
 
   def start_link(max_number) do
     GenServer.start_link(__MODULE__, max_number, name: @name)

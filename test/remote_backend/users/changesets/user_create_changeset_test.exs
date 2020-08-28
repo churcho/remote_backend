@@ -6,8 +6,8 @@ defmodule RemoteBackend.Users.Changesets.UserCreateChangesetTest do
   use RemoteBackend.DataCase, async: true
   use FlowAssertions.Ecto
 
-  alias RemoteBackend.Users.UserChangeset
   alias RemoteBackend.Users.User
+  alias RemoteBackend.Users.UserChangeset
 
   describe ".create_changeset/1" do
     test "given valid string keyed params" do

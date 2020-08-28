@@ -48,8 +48,14 @@ defmodule RemoteBackend.UserStoreTest do
       refute timestamp == init_timestamp
     end
 
-    @tag :current
-    @max_number 200
+    setup do
+      max = RemoteBackend.get_max_number()
+      # This is done to ensure that max point never hits 100 for the GenServer
+      Application.put_env(:remote_backend, :max_points, 99)
+      on_exit(fn -> Application.put_env(:remote_backend, :max_points, max) end)
+    end
+
+    @max_number 100
     test "handle_info :refresh sets a new max_number", %{users: users} do
       {:ok, init_timestamp} =
         Timex.format(Timex.shift(Timex.now(), minutes: -1), "{YYYY}-{0M}-{D} {h24}:{m}:{s}")
@@ -64,7 +70,14 @@ defmodule RemoteBackend.UserStoreTest do
       assert max_number < @max_number
     end
 
-    @max_number 200
+    setup do
+      max = RemoteBackend.get_max_number()
+      # This is done to ensure that max point never hits 100 for the GenServer
+      Application.put_env(:remote_backend, :max_points, 99)
+      on_exit(fn -> Application.put_env(:remote_backend, :max_points, max) end)
+    end
+
+    @max_number 100
     test "handle_info :refresh updates users points" do
       {:ok, init_timestamp} =
         Timex.format(Timex.shift(Timex.now(), minutes: -1), "{YYYY}-{0M}-{D} {h24}:{m}:{s}")

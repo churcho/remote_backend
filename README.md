@@ -28,7 +28,7 @@ mix deps.get
 Setup initial seed configs
 ```shell
 # In your config/config.exs file
-config :remote_backend, Sample.Mailer,
+config :remote_backend,
   max_points: 100, # Maximum points a user can be awarded
   max_user_seed: 100 #You can change this to test performance
 ```

@@ -16,7 +16,6 @@ defmodule RemoteBackend.Users.UserChangeset do
     struct
     |> cast(params, @fields, empty_values: [])
     |> validate_required(@fields)
-
-    # |> validate_number(:points, less_than: 20)
+    |> validate_number(:points, greater_than_or_equal_to: 0, less_than_or_equal_to: 100)
   end
 end

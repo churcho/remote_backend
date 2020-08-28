@@ -1,7 +1,7 @@
 # RemoteBackend
 This is the Elixir Backend that powers the automated point assigment for users :-)
 
-- This application is standard elixir application that uses the [Phoenix](https://www.phoenixframework.org/) library to provide an endpoint for retrieval of users.
+- This application is standard elixir application that uses the [Phoenix](https://www.phoenixframework.org/) framework to provide an endpoint for retrieval of users.
 
 - Basic familiarity with Elixir is a pre requisite 
 
